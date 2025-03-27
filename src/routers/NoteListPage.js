@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-// import NoteList from "../component/NoteList";
+import NoteList from "../components/NoteList";
 import {Button, Container, Navbar} from "react-bootstrap";
 import LogoutBtn from "../components/LogoutBtn";
 
@@ -11,7 +11,7 @@ const NoteListPage = () => {
                 <h2>My Notes</h2>
                 <LogoutBtn/>
             </Navbar>
-            {/*<NoteList/>*/}
+            <NoteList/>
         </Container>
     );
 };
