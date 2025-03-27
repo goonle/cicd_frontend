@@ -24,9 +24,10 @@ describe('LoginPage Register', () => {
     fireEvent.click(signUpButton);
 
     // Fill the form
-    const usernameInput = screen.getAllByLabelText(/username/i);
-    const passwordInput = screen.getAllByLabelText(/password/i);
-    const confirmPasswordInput = screen.getByLabelText(/confirm-password/i);
+    const usernameInput = screen.getByLabelText(/username/i);
+    const passwordInputs = screen.getAllByLabelText(/password/i);
+    const passwordInput = passwordInputs[0];
+    const confirmPasswordInput = passwordInputs[1];
 
     await userEvent.type(usernameInput, 'newuser');
     await userEvent.type(passwordInput, 'password123');

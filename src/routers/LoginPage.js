@@ -28,36 +28,36 @@ const LoginPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // let data = {
-        //     "username": username,
-        //     "password": password
-        // };
-        //
-        // let config = {
-        //     method: 'post',
-        //     maxBodyLength: Infinity,
-        //     url: `${SERVER_URL}/user/login/`,
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     data: data
-        // };
-        //
-        // axios.request(config)
-        //     .then((response) => {
-        //         const token = response.data.token;
-        //         if(!token){
-        //             console.log("No token");
-        //             return;
-        //         }
-        //
-        //         localStorage.setItem('token', token);
-        //         window.location.href = '/noteList';
-        //     })
-        //     .catch((error) => {
-        //         localStorage.setItem('token', "");
-        //         console.log(error);
-        //     });
+        let data = {
+            "username": username,
+            "password": password
+        };
+
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: `${SERVER_URL}/user/login/`,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios.request(config)
+            .then((response) => {
+                const token = response.data.token;
+                if(!token){
+                    console.log("No token");
+                    return;
+                }
+
+                localStorage.setItem('token', token);
+                window.location.href = '/noteList';
+            })
+            .catch((error) => {
+                localStorage.setItem('token', "");
+                console.log(error);
+            });
 
     };
 
