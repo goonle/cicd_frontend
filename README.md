@@ -30,7 +30,7 @@ It allows users to manage personal notes with status tracking (To Do, In Progres
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/your-username/note-app-frontend.git
+git clone [https://github.com/your-username/note-app-frontend.git](https://github.com/goonle/cicd_frontend.git)
 cd note-app-frontend
 ```
 
@@ -66,7 +66,7 @@ By default, it runs at [http://localhost:3000](http://localhost:3000)
 
 ## 📋 API Dependency
 
-This app depends on the [Note App Backend](https://github.com/your-username/note-app-backend).  
+This app depends on the [Note App Backend](https://github.com/goonle/cicd_backend).  
 You must start the backend server at:
 
 ```
@@ -99,15 +99,38 @@ npm test
 ## 📁 Folder Structure
 
 ```
-src/
-├── components/
-│   ├── NoteList.js
-│   ├── NoteModal.js
-│   └── LoadingPanel.js
-├── constants/
-│   └── server.js
-├── App.js
-├── index.js
+frontend/
+├── .github/
+├── node_modules/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── LoadingPanel.js
+│   │   ├── LogoutBtn.js
+│   │   ├── LogoutBtn.test.js
+│   │   ├── NoteItem.js
+│   │   ├── NoteItem.test.js
+│   │   ├── NoteList.js
+│   │   ├── NoteList.test.js
+│   │   ├── NoteModal.js
+│   │   ├── NoteModal.test.js
+│   │   ├── OpenModalBtn.js
+│   ├── constants/
+│   │   └── server.js
+│   ├── routers/
+│   │   ├── Home.js
+│   │   ├── LoginPage.js
+│   │   ├── LoginPage.test.js
+│   │   ├── NoteListPage.js
+│   │   └── PrivateRoute.js
+│   ├── App.css
+│   ├── App.js
+│   ├── App.test.js
+│   ├── index.css
+│   ├── index.js
+│   ├── logo.svg
+│   ├── reportWebVitals.js
+│   └── setupTests.js
 └── ...
 ```
 
@@ -135,7 +158,6 @@ const SERVER_URL = process.env.REACT_APP_API_BASE;
 - Drag-and-drop Kanban style board
 - Persistent login
 - Tag or label system for notes
-- Dark mode toggle
 
 ---
 
