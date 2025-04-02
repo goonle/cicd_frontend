@@ -1,70 +1,151 @@
-# Getting Started with Create React App
+# 📝 Note App Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend client for the Note App, built with **React** and **React Bootstrap**.  
+It allows users to manage personal notes with status tracking (To Do, In Progress, Done), and connects to a Django REST API backend.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+- Responsive UI using React Bootstrap
+- Token-based authentication
+- Create, view, update, and delete notes
+- Notes organized by status
+- Modal form for note input
+- Axios for API requests
+- Auto-filtered note list by logged-in user
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠 Tech Stack
 
-### `npm test`
+- React (via Create React App)
+- Axios
+- React Bootstrap
+- LocalStorage for auth token
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 📦 Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 1. Clone the repo
+```bash
+git clone https://github.com/your-username/note-app-frontend.git
+cd note-app-frontend
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2. Install dependencies
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 3. Start the development server
+```bash
+npm start
+```
 
-### `npm run eject`
+By default, it runs at [http://localhost:3000](http://localhost:3000)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🔐 Authentication
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. The login form sends a request to the Django backend:
+   ```
+   POST /api-token-auth/
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. On success, it stores the returned token in `localStorage`.
 
-## Learn More
+3. All future API requests include this header:
+   ```
+   Authorization: Token <your_token>
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📋 API Dependency
 
-### Code Splitting
+This app depends on the [Note App Backend](https://github.com/your-username/note-app-backend).  
+You must start the backend server at:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+http://localhost:8000
+```
 
-### Analyzing the Bundle Size
+You can configure the backend URL in:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+/src/constants/server.js
+```
 
-### Making a Progressive Web App
+```js
+const SERVER_URL = "http://localhost:8000";
+export default SERVER_URL;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 🧪 Running Tests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+If you're writing component tests:
 
-### Deployment
+```bash
+npm test
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## 📁 Folder Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+src/
+├── components/
+│   ├── NoteList.js
+│   ├── NoteModal.js
+│   └── LoadingPanel.js
+├── constants/
+│   └── server.js
+├── App.js
+├── index.js
+└── ...
+```
+
+---
+
+## 🔄 Environment Variables (Optional)
+
+Create a `.env` file for API customization:
+
+```
+REACT_APP_API_BASE=http://localhost:8000
+```
+
+Use it like:
+
+```js
+const SERVER_URL = process.env.REACT_APP_API_BASE;
+```
+
+---
+
+## 📌 Future Enhancements
+
+- User login / registration UI
+- Drag-and-drop Kanban style board
+- Persistent login
+- Tag or label system for notes
+- Dark mode toggle
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome!  
+Feel free to fork and improve the project.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
