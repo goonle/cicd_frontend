@@ -13,8 +13,9 @@ export default class NoteModal extends React.Component {
                 id: !!props.note ? props.note.id : "",
                 title: !!props.note ? props.note.title : "",
                 content: !!props.note ? props.note.content : "",
+                status: !!props.note ? props.note.status : 1
             },
-            method: !!props.note ? 'put' : 'post'
+            method: !!props.note ? 'put' : 'post',
         };
         console.log("this.state:", this.state);
         this.clickCloseModalHandler = this.clickCloseModalHandler.bind(this);
@@ -42,7 +43,7 @@ export default class NoteModal extends React.Component {
 
     handleSubmit() {
         const {note, method} = this.state;
-        const {title, content, id} = note;
+        const {title, content, id, status} = note;
 
         if (!title.trim() || !content.trim()) {
             alert("Please enter both title and content!");
@@ -50,7 +51,7 @@ export default class NoteModal extends React.Component {
         }
         // Call parent method to add note (if passed as a prop)
         if (this.props.onAddNote) {
-            this.props.onAddNote({title, content});
+            this.props.onAddNote({title, content, status});
         }
 
         const token = localStorage.getItem('token');
@@ -65,9 +66,12 @@ export default class NoteModal extends React.Component {
             data: {
                 note_id: id,
                 title: title,
-                content: content
+                content: content,
+                status: status
             }
         }
+
+        this.props.showModal();
         axios.request(config)
             .then((response) => {
                 console.log(JSON.stringify(response.data));
@@ -80,7 +84,7 @@ export default class NoteModal extends React.Component {
     }
 
     render() {
-        const {title, content} = this.state.note;
+        const {title, content, status} = this.state.note;
 
         return (
             <Modal show={this.state.show} onHide={this.clickCloseModalHandler} centered>
@@ -112,6 +116,19 @@ export default class NoteModal extends React.Component {
                                 style={{resize: "none"}}
                                 required
                             />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="note-status">
+                            <Form.Label>Status</Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="status"
+                                onChange={this.onChangeHandler}
+                                value={status}
+                            >
+                                <option value={1}>To Do</option>
+                                <option value={2}>In Progress</option>
+                                <option value={3}>Done</option>
+                            </Form.Control>
                         </Form.Group>
                     </Form>
                 </Modal.Body>

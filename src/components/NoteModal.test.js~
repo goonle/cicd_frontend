@@ -38,7 +38,7 @@ describe('NoteModal', () => {
         expect(mockOnAddNote).toHaveBeenCalledWith({
             title: 'Test Note',
             content: 'This is a test.',
-            status: "2"
+            status: 2
         });
 
 

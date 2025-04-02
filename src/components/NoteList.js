@@ -1,19 +1,25 @@
 import React, {useEffect, useState} from "react";
 import {Container, Row, Col, Card} from "react-bootstrap";
-import Button from "react-bootstrap/Button";
 import SERVER_URL from "../constants/server";
 import axios from "axios";
 
 import OpenModalBtn from "./OpenModalBtn";
 import NoteModal from "./NoteModal";
 import NoteItem from "./NoteItem";
+import LoadingPanel from "./LoadingPanel";
 
-const categories = ["To-Do"];
+// const categories = ["To-Do", "Done"];
+const categories = [
+    {id: 1, name: "To Do"},
+    {id: 2, name: "In Progress"},
+    {id: 3, name: "Done"}
+]
 
 const NoteList = ({notes}) => {
         const [show, setShow] = useState(false);
         const [noteList, setNoteList] = useState([]);
         const [selectedNote, setSelectedNote] = useState(null);
+        const [loading, setLoading] = useState(true);
 
         const token = localStorage.getItem('token');
         const config = {
@@ -35,9 +41,12 @@ const NoteList = ({notes}) => {
                     })
                     .catch((error) => {
                         console.log(error);
-                    });
+                    }).finally(()=>{
+                        setLoading(false);
+                });
             }
         }
+        const showModal = function(){setLoading(true) }
 
         useEffect(() => {
             getNoteList();
@@ -65,12 +74,14 @@ const NoteList = ({notes}) => {
             if (token) {
                 axios.request(delConfig)
                     .then((response) => {
-                        console.log(JSON.stringify(response.data));
+                        // console.log(JSON.stringify(response.data));
                         setNoteList(noteList.filter(note => note.id !== id));
                     })
                     .catch((error) => {
                         console.log(error);
-                    });
+                    }).finally(()=>{
+                        setLoading(false);
+                });
             }
         };
 
@@ -79,12 +90,12 @@ const NoteList = ({notes}) => {
                 <h1 className="text-center mb-4">Note List</h1>
                 <OpenModalBtn btnText="Add Note" clickHandler={clickAddNoteHandler}/>
                 <Row className="d-flex justify-content-center">
-                    {categories.map((category, index) => (
-                        <Col md={4} key={index}>
-                            <h4 className="text-center">{category}</h4>
+                    {categories.map((item) => (
+                        <Col md={4} key={item.id}>
+                            <h4 className="text-center">{item.name}</h4>
                             <div className="kanban-column p-2 rounded" style={{minHeight: "300px"}}>
                                 {noteList
-                                    // .filter(note => note.category === category)
+                                    .filter(note => note.status === item.id)
                                     .map((note) => (
                                         <NoteItem
                                             key={note.id}
@@ -102,9 +113,11 @@ const NoteList = ({notes}) => {
                         note={selectedNote}
                         getNoteList={getNoteList}
                         clickCloseModalHandler={clickCloseModalHandler}
+                        showModal={showModal}
                         handleSubmit={function () {
                         }}
                     />}
+                {loading && <LoadingPanel/>}
             </Container>
         );
     }
